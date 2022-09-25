@@ -1,5 +1,7 @@
 # AWLE
 
+![Detachment 720 Logo](https://raw.githubusercontent.com/lfgberg/AWLE/gh-pages/assets/afrotc.jpg)
+
 This is a choose your own adventure style wargaming scenario designed for the [Penn State AFROTC Detachment 720](https://www.airforce.psu.edu/)
 
 ## Usage
