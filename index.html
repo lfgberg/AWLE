@@ -9,15 +9,34 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play AWLE.</tw-noscript></noscript></tw-story>
-<tw-storydata name="AWLE" startnode="1" creator="Twine" creator-version="2.5.1" format="Harlowe" format-version="3.3.3" ifid="CA4EE0C9-7ED8-49AF-9AA1-83ADD42D765E" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">tw-sidebar {
+<tw-storydata name="AWLE" startnode="1" creator="Twine" creator-version="2.5.1" format="Harlowe" format-version="3.3.3" ifid="CA4EE0C9-7ED8-49AF-9AA1-83ADD42D765E" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">@import 'https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap';
+
+tw-story {
+  background-color: #A4DEEC;
+  color: black;
+  font-family: 'Share Tech Mono', monospace;
+  background-image: url('https://raw.githubusercontent.com/lfgberg/AWLE/gh-pages/assets/cloudbanner.png')
+}
+
+h1 {
+  color: #0D60A2;
+  font-family: 'Share Tech Mono', monospace;
+  text-shadow: -2px -2px 0 white, 2px -2px 0 red, -2px 2px 0 red, 2px 2px 0 red;
+}
+
+tw-sidebar {
 	display: none;
+}
+
+tw-link {
+  color: #0D60A2
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Situation" tags="" position="475,350" size="100,100">&lt;!--  init vars  --&gt;
 (set: $chances to 3)
 (set: $order to (shuffled: 1, 2, 3, 4))
 (set: $index to 1)
 (set: $passed to (a:))
 (set: $failed to (a:))
-#The Scenario
+#THE SCENARIO
 Russia has advanced into NATO territory in Europe and you (AS 400) are the commander of United States Air Forces in Europe (USAFE). You and your Executive Officer must lead your team in a coordinated response with the warfighting assets you have available to you. A map of the invasion can be seen below.
 
 &lt;img src=&quot;https://raw.githubusercontent.com/lfgberg/AWLE/gh-pages/assets/situationMap.jpg&quot;&gt;
