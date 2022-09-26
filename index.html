@@ -181,9 +181,9 @@ You&#39;ve run out of chances on this portion.
 (else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]\
 ](else:)[\
 ##Chances Remaining: $chances
-While you organize for battle, your deputies must work together to decide which of the following tasks from the European Combatant Command Commander you will USAFE will complete and which task USAFE will recommend delegating to other organizations/services. 
+While you organize for battle, your deputies must work together to decide which of the following tasks from the European Combatant Command Commander fall under the responsibility of the air component and which tasks USAFE will recommend delegating to other organizations/services. 
 
-Select which tasks to accept as a USAFE area of responsibility:
+Select which tasks fall under USAFE area of responsibility:
 &lt;!--  Checkboxes for Airforce  --&gt;
 (for: each _question, ...(shuffled:
 &#39;(checkbox: bind $afPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;)&#39;,
@@ -196,7 +196,7 @@ Select which tasks to accept as a USAFE area of responsibility:
 &#39;(checkbox: bind $afGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;)&#39;,
 ))[(print: _question)&lt;br&gt;]
 
-Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander redelegates to a naval component:
+Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander delegates to a naval component:
 
 &lt;!--  Checkboxes for Navy  --&gt;
 (for: each _question, ...(shuffled:
@@ -210,7 +210,7 @@ Select which tasks are outside the scope of USAFE responsibility and you would r
 &#39;(checkbox: bind $nvPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;)&#39;,
 ))[(print: _question)&lt;br&gt;]
 
-Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander redelegates to a ground component:
+Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander delegates to a ground component:
 
 &lt;!--  Checkboxes for Army  --&gt;
 (for: each _question, ...(shuffled:
