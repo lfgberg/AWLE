@@ -92,23 +92,25 @@ The warfighting assets you may have available to you during this scenario are as
 * U-2 Dragonlady 
 
 &lt;center&gt;[[I Understand-&gt;Select Tasks]]&lt;/center&gt;</tw-passagedata><tw-passagedata pid="2" name="Task One" tags="" position="925,225" size="100,100">&lt;!--  Check for remaining chances --&gt;
-(if: $chances &lt;= 0)[
+(if: $chances &lt;= 0)[\
 &lt;!--  User failed  --&gt;
 #Failure
 You&#39;ve run out of chances on this portion.
 &lt;!--  Reset, log, go to next task --&gt;
 (set: $chances to 3)\
 (set: $failed to it + (a: 1))\
-(if: $index is 4)[
+(if: $index is 4)[\
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
-](else:)[
+](else:)[\
 (set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
-(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
-(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
-(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
-(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]
-]](else:)[
+(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]\
+(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]\
+(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]\
+(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]\
+]](else:)[\
 #Collect intelligence on Russian supply movements in country
 ##Chances Remaining: $chances
 Aid the joint force in securing intelligence on Russian troop and supply movements within Russian borders. The map below displays our current understanding of Russian troop and supply locations.  
@@ -132,33 +134,34 @@ You need to expand the information available to analysts. You can launch your mi
 
 Select a ship:
 |ships&gt;[{
-	(link: &quot;MQ-9 Reaper&quot;)[
+(for: each _question, ...(shuffled:
+	&#39;(link: &quot;MQ-9 Reaper&quot;)[
 		(set: $taskOneShip to &quot;MQ9&quot;)\
 		(replace: ?ships)[MQ-9 Reaper]
-	]
-	&lt;br&gt;
-	(link: &quot;RQ-4 Global Hawk&quot;)[
+	]&#39;,
+	&#39;(link: &quot;RQ-4 Global Hawk&quot;)[
 		(set: $taskOneShip to &quot;RQ4&quot;)\
 		(replace: ?ships)[RQ-4 Global Hawk]
-	]
-	&lt;br&gt;
-	(link: &quot;U2 Dragonlady&quot;)[
+	]&#39;,
+	&#39;(link: &quot;U2 Dragonlady&quot;)[
 		(set: $taskOneShip to &quot;U2&quot;)\
 		(replace: ?ships)[U2 Dragonlady]
-	]
+	]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 
 Select a base:
 |bases&gt;[{
-	(link: &quot;Finland&quot;)[
+(for: each _question, ...(shuffled:
+	&#39;(link: &quot;Finland&quot;)[
 		(set: $taskOneBase to &quot;Finland&quot;)\
 		(replace: ?bases)[Finland]
-	]
-	&lt;br&gt;
-	(link: &quot;Estonia&quot;)[
+	]&#39;,
+	&#39;(link: &quot;Estonia&quot;)[
 		(set: $taskOneBase to &quot;Estonia&quot;)\
 		(replace: ?bases)[Estonia]
-	]
+	]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 
 &lt;center&gt;[[Launch Mission-&gt;Evaluate Task One]]&lt;/center&gt;
@@ -172,66 +175,73 @@ You&#39;ve run out of chances on this portion.
 (set: $failed to it + (a: 0))\
 (set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
-(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
-(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
-(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
-(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]
-(else:)[&lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;]
-](else:)[
+(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]\
+(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]\
+(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]\
+(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]\
+](else:)[\
 ##Chances Remaining: $chances
 While you organize for battle, your deputies must work together to decide which of the following tasks from the European Combatant Command Commander you will USAFE will complete and which task USAFE will recommend delegating to other organizations/services. 
 
 Select which tasks to accept as a USAFE area of responsibility:
 &lt;!--  Checkboxes for Airforce  --&gt;
-(checkbox: bind $afCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $afPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;) 
-(checkbox: bind $afGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;) 
-(checkbox: bind $afAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;) 
-(checkbox: bind $afInt, &quot;Collect intelligence on Russian supply movements in country&quot;) 
-(checkbox: bind $afSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $afEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;) 
-(checkbox: bind $afSupport, &quot;Provide close air support to ground troops&quot;) 
+(for: each _question, ...(shuffled:
+&#39;(checkbox: bind $afPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;)&#39;,
+&#39;(checkbox: bind $afSupport, &quot;Provide close air support to ground troops&quot;)&#39;,
+&#39;(checkbox: bind $afAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;)&#39;,
+&#39;(checkbox: bind $afInt, &quot;Collect intelligence on Russian supply movements in country&quot;)&#39;,
+&#39;(checkbox: bind $afEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;)&#39;,
+&#39;(checkbox: bind $afSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $afCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $afGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;)&#39;,
+))[(print: _question)&lt;br&gt;]
 
 Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander redelegates to a naval component:
 
 &lt;!--  Checkboxes for Navy  --&gt;
-(checkbox: bind $nvCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $nvPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;) 
-(checkbox: bind $nvGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;) 
-(checkbox: bind $nvAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;) 
-(checkbox: bind $nvInt, &quot;Collect intelligence on Russian supply movements in country&quot;) 
-(checkbox: bind $nvSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $nvEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;) 
-(checkbox: bind $nvSupport, &quot;Provide close air support to ground troops&quot;) 
+(for: each _question, ...(shuffled:
+&#39;(checkbox: bind $nvInt, &quot;Collect intelligence on Russian supply movements in country&quot;)&#39;,
+&#39;(checkbox: bind $nvCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $nvGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;)&#39;,
+&#39;(checkbox: bind $nvAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;)&#39;,
+&#39;(checkbox: bind $nvSupport, &quot;Provide close air support to ground troops&quot;)&#39;,
+&#39;(checkbox: bind $nvSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $nvEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;)&#39;,
+&#39;(checkbox: bind $nvPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;)&#39;,
+))[(print: _question)&lt;br&gt;]
 
 Select which tasks are outside the scope of USAFE responsibility and you would recommend the European Combatant Command Commander redelegates to a ground component:
 
 &lt;!--  Checkboxes for Army  --&gt;
-(checkbox: bind $armCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $armPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;) 
-(checkbox: bind $armGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;) 
-(checkbox: bind $armAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;) 
-(checkbox: bind $armInt, &quot;Collect intelligence on Russian supply movements in country&quot;) 
-(checkbox: bind $armSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;) 
-(checkbox: bind $armEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;) 
-(checkbox: bind $armSupport, &quot;Provide close air support to ground troops&quot;) 
+(for: each _question, ...(shuffled:
+&#39;(checkbox: bind $armInt, &quot;Collect intelligence on Russian supply movements in country&quot;)&#39;,
+&#39;(checkbox: bind $armEquip, &quot;Move equipment and troops into Finland and Poland to supply ground invasion&quot;)&#39;,
+&#39;(checkbox: bind $armGround, &quot;Deploy ground forces in Estonia to cut off Russian advance&quot;)&#39;,
+&#39;(checkbox: bind $armPorts, &quot;Blockade the Gulf of Finland to cut off the port of Saint Petersburg&quot;)&#39;,
+&#39;(checkbox: bind $armSupply, &quot;Obliterate Russian supply lines into Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $armAdvance, &quot;Insert forces along the polish boarder to prevent further Russian advancement&quot;)&#39;,
+&#39;(checkbox: bind $armCoasts, &quot;Secure the coasts of Estonia, Latvia, and Lithuania&quot;)&#39;,
+&#39;(checkbox: bind $armSupport, &quot;Provide close air support to ground troops&quot;)&#39;,
+))[(print: _question)&lt;br&gt;]
 
 &lt;center&gt;[[Confirm Choices-&gt;Airforce Capabilities]]&lt;/center&gt;
-]</tw-passagedata><tw-passagedata pid="4" name="Airforce Capabilities" tags="" position="775,350" size="100,100">&lt;!--  Check task input  --&gt;
+]</tw-passagedata><tw-passagedata pid="4" name="Airforce Capabilities" tags="" position="775,350" size="100,100">&lt;!--  Check task input  --&gt;\
 (set: _afPassed to false)\
 (set: _nvPassed to false)\
 (set: _armPassed to false)\
-(if: $afInt is true and $afSupply is true and $afEquip is true and $afSupport is true and $afCoasts is false and $afPorts is false and $afGround is false and $afAdvance is false)[(set: _afPassed to true)]
-(if: $nvCoasts is true and $nvPorts is true and $nvGround is false and $nvAdvance is false and $nvInt is false and $nvSupply is false and $nvEquip is false and $nvSupport is false)[(set: _nvPassed to true)]
-(if: $armCoasts is false and $armPorts is false and $armGround is true and $armAdvance is true and $armInt is false and $armSupply is false and $armEquip is false and $armSupport is false)[(set: _armPassed to true)]
-&lt;!--  Determine if they move forward  --&gt;
-(if: _afPassed is true and _nvPassed is true and _armPassed is true)[
+(if: $afInt is true and $afSupply is true and $afEquip is true and $afSupport is true and $afCoasts is false and $afPorts is false and $afGround is false and $afAdvance is false)[(set: _afPassed to true)]\
+(if: $nvCoasts is true and $nvPorts is true and $nvGround is false and $nvAdvance is false and $nvInt is false and $nvSupply is false and $nvEquip is false and $nvSupport is false)[(set: _nvPassed to true)]\
+(if: $armCoasts is false and $armPorts is false and $armGround is true and $armAdvance is true and $armInt is false and $armSupply is false and $armEquip is false and $armSupport is false)[(set: _armPassed to true)]\
+&lt;!--  Determine if they move forward  --&gt;\
+(if: _afPassed is true and _nvPassed is true and _armPassed is true)[\
 #Success
 You&#39;ve successfully identified the capabilities of the Joint Fight
 &lt;!--  Reset, log, go to next task --&gt;
 (set: $chances to 3)\
 (set: $passed to it + (a: 0))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -257,6 +267,8 @@ You have successfully gathered information on troop and supply movements across 
 (set: $chances to 3)\
 (set: $passed to it + (a: 1))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -276,6 +288,7 @@ The aircraft cannot launch under the conditions of a forward operation base.
 (set: $chances to it - 1)\
 &lt;center&gt;[[Try Again-&gt;Task One]]&lt;/center&gt;
 ](else:)[
+#Error
 Please make a base and ship selection.
 &lt;center&gt;[[Try Again-&gt;Task One]] &lt;/center&gt;
 ]</tw-passagedata><tw-passagedata pid="6" name="Task Two" tags="" position="925,350" size="100,100">&lt;!--  Check for remaining chances --&gt;
@@ -287,6 +300,8 @@ You&#39;ve run out of chances on this portion.
 (set: $chances to 3)\
 (set: $failed to it + (a: 2))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -314,13 +329,16 @@ img {
 &lt;img src=&quot;https://raw.githubusercontent.com/lfgberg/AWLE/gh-pages/assets/supplyLines.jpg&quot;&gt;
 
 Please select which aircraft groups you would like to run this mission:
-(checkbox: bind $fighters, &quot;Fighters&quot;)
-(checkbox: bind $bombers, &quot;Bombers&quot;)
-(checkbox: bind $refuelers, &quot;Aerial Refuelers&quot;)
-(checkbox: bind $helicopters, &quot;Helicopters&quot;)
-(checkbox: bind $ISR, &quot;ISR Platforms&quot;)
-(checkbox: bind $remote, &quot;Remotely Piloted Aircraft&quot;)
-(checkbox: bind $mobility, &quot;Mobility Aircraft&quot;)
+
+(for: each _question, ...(shuffled:
+&#39;(checkbox: bind $fighters, &quot;Fighters&quot;)&#39;,
+&#39;(checkbox: bind $bombers, &quot;Bombers&quot;)&#39;,
+&#39;(checkbox: bind $refuelers, &quot;Aerial Refuelers&quot;)&#39;,
+&#39;(checkbox: bind $helicopters, &quot;Helicopters&quot;)&#39;,
+&#39;(checkbox: bind $ISR, &quot;ISR Platforms&quot;)&#39;,
+&#39;(checkbox: bind $remote, &quot;Remotely Piloted Aircraft&quot;)&#39;,
+&#39;(checkbox: bind $mobility, &quot;Mobility Aircraft&quot;)&#39;,
+))[(print: _question)&lt;br&gt;]
 
 &lt;center&gt;[[Make Selection-&gt;Evaluate Task Two Categories]]&lt;/center&gt;
 ]
@@ -331,32 +349,32 @@ Please select which aircraft groups you would like to run this mission:
 Your requested squadrons have arrived in Germany and are awaiting their assignment. Which type of bomber aircraft would you like to use for the mission: 
 (set: $bomberChoice to &quot;&quot;)\
 |bomber&gt;[{
-	(link: &quot;B1 Lancer&quot;)[
+(for: each _question, ...(shuffled:
+	&#39;(link: &quot;B1 Lancer&quot;)[
 		(set: $bomberChoice to &quot;B1&quot;)\
 		(replace: ?bomber)[
         &lt;center&gt;
         [[Select Accompanying Ships-&gt;Task Two Accompanying Ships]]
         &lt;/center&gt;
         ]
-	]
-	&lt;br&gt;
-	(link: &quot;B2 Spirit&quot;)[
+	]&#39;,
+	&#39;(link: &quot;B2 Spirit&quot;)[
 		(set: $bomberChoice to &quot;B2&quot;)\
 		(replace: ?bomber)[
         &lt;center&gt;
         [[Select Accompanying Ships-&gt;Task Two Accompanying Ships]]
         &lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-    (link: &quot;B52 Stratofortress&quot;)[
+	]&#39;,
+    &#39;(link: &quot;B52 Stratofortress&quot;)[
     	(set: $bomberChoice to &quot;B52&quot;)\
 		(replace: ?bomber)[
         &lt;center&gt;
         [[Select Accompanying Ships-&gt;Task Two Accompanying Ships]]
         &lt;/center&gt;
         ]
-    ]
+    ]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 ](else:)[
 #Failure
@@ -367,47 +385,46 @@ The European Combatant Commander has expressed concern you are not appropriately
 Select which aircraft to accompany your bomber:
 (set: $buddy to &quot;&quot;)\
 |buddy&gt;[{
-	(link: &quot;F-35 Lightning II&quot;)[
+(for: each _question, ...(shuffled:
+&#39;(link: &quot;F-35 Lightning II&quot;)[
 		(set: $buddy to &quot;F35&quot;)\
 		(replace: ?buddy)[F-35 Lightning II]
-	]
-	&lt;br&gt;
-	(link: &quot;F-15E Strike Eagle&quot;)[
+	]&#39;,
+	&#39;(link: &quot;F-15E Strike Eagle&quot;)[
 		(set: $buddy to &quot;F15&quot;)\
 		(replace: ?buddy)[F-15E Strike Eagle]
-	]
-    &lt;br&gt;
-    (link: &quot;F-16 Fighting Falcon&quot;)[
+	]&#39;,
+    &#39;(link: &quot;F-16 Fighting Falcon&quot;)[
     	(set: $buddy to &quot;F16&quot;)\
 		(replace: ?buddy)[F-16 Fighting Falcon]
-    ]
-    &lt;br&gt;
-    (link: &quot;F-22 Raptor&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;F-22 Raptor&quot;)[
     	(set: $buddy to &quot;F22&quot;)\
 		(replace: ?buddy)[F-22 Raptor]
-    ]
-     &lt;br&gt;
-    (link: &quot;A-10 Thunderbolt II&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;A-10 Thunderbolt II&quot;)[
     	(set: $buddy to &quot;A10&quot;)\
 		(replace: ?buddy)[A-10 Thunderbolt II]
-    ]
+    ]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
+
 (set: $buddyFuel to &quot;&quot;)\
 |buddyFuel&gt;[{
-	(link: &quot;KC-10 Extender&quot;)[
+(for: each _question, ...(shuffled:
+	&#39;(link: &quot;KC-10 Extender&quot;)[
 		(set: $buddyFuel to &quot;KC10&quot;)\
 		(replace: ?buddyFuel)[KC-10 Extender]
-	]
-	&lt;br&gt;
-	(link: &quot;KC-135 Stratotanker&quot;)[
+	]&#39;,
+	&#39;(link: &quot;KC-135 Stratotanker&quot;)[
 		(set: $buddyFuel to &quot;KC135&quot;)\
 		(replace: ?buddyFuel)[KC-135 Stratotanker]
-	]
-    &lt;br&gt;
-    (link: &quot;KC-46 Pegasus&quot;)[
+	]&#39;,
+    &#39;(link: &quot;KC-46 Pegasus&quot;)[
     	(set: $buddyFuel to &quot;KC46&quot;)\
 		(replace: ?buddyFuel)[KC-46 Pegasus]
-    ]
+    ]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 
 &lt;center&gt;[[Launch Mission-&gt;Evaluate Task Two]]&lt;/center&gt;</tw-passagedata><tw-passagedata pid="9" name="Task Three" tags="" position="925,475" size="100,100">&lt;!--  Check for remaining chances --&gt;
@@ -419,6 +436,8 @@ You&#39;ve run out of chances on this portion.
 (set: $chances to 3)\
 (set: $failed to it + (a: 3))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -435,123 +454,113 @@ You need to send aircraft from the United States through the United Kingdom and 
 
 Which mobility aircraft do you select?
 |mobility&gt;[{
-	(link: &quot;E8 Joint STARS&quot;)[
+(for: each _question, ...(shuffled:
+&#39;(link: &quot;E8 Joint STARS&quot;)[
 		(replace: ?mobility)[
     #Failure
         This is not a mobility aircraft.
         (set: $chances to it - 1)
         &lt;center&gt;[[Try Again-&gt;Task Three]]&lt;/center&gt;
         ]
-	]
-	&lt;br&gt;
-	(link: &quot;B2 Spirit&quot;)[
+	]&#39;,
+	&#39;(link: &quot;B2 Spirit&quot;)[
 		(replace: ?mobility)[
         #Failure
         This is not a mobility aircraft.
         (set: $chances to it - 1)
         &lt;center&gt;[[Try Again-&gt;Task Three]]&lt;/center&gt;
         ]
-	]
-   &lt;br&gt;
-	(link: &quot;KC-10 Extender&quot;)[
+	]&#39;,
+	&#39;(link: &quot;KC-10 Extender&quot;)[
 		(replace: ?mobility)[
         #Failure
         This is not the mobility aircraft ideal for carrying out this mission set. .
         (set: $chances to it - 1)
         &lt;center&gt;[[Try Again-&gt;Task Three]]&lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-	(link: &quot;C-17 Globemaster III&quot;)[
+	]&#39;,
+	&#39;(link: &quot;C-17 Globemaster III&quot;)[
 		(replace: ?mobility)[
         #Success
-        C-17 Globemaster III
         &lt;center&gt;[[Select Accompanying Fighter-&gt;Fighter Selection]]&lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-	(link: &quot;C-5 Galaxy&quot;)[
+	]&#39;,
+	&#39;(link: &quot;C-5 Galaxy&quot;)[
 		(replace: ?mobility)[
         #Success
-        C-5 Galaxy
         &lt;center&gt;[[Select Accompanying Fighter-&gt;Fighter Selection]]&lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-	(link: &quot;C-130 Hercules&quot;)[
+	]&#39;,
+	&#39;(link: &quot;C-130 Hercules&quot;)[
 		(replace: ?mobility)[
         #Success
-        C-130 Hercules
         &lt;center&gt;[[Select Accompanying Fighter-&gt;Fighter Selection]]&lt;/center&gt;
         ]
-	]
+	]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 ]</tw-passagedata><tw-passagedata pid="10" name="Fighter Selection" tags="" position="1050,475" size="100,100">##Chances Remaining: $chances
 Which fighter aircraft would you like to accompany your mobility aircraft?
 (set: $fighter to &quot;&quot;)\
 |fighter&gt;[{
-	(link: &quot;F-35 Lightning II&quot;)[
+(for: each _question, ...(shuffled:
+&#39;(link: &quot;F-35 Lightning II&quot;)[
     (set: $fighter to &quot;F35&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-	]
-	&lt;br&gt;
-	(link: &quot;F-15E Strike Eagle&quot;)[
+	]&#39;,
+	&#39;(link: &quot;F-15E Strike Eagle&quot;)[
     (set: $fighter to &quot;F15&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-    (link: &quot;F-16 Fighting Falcon&quot;)[
+	]&#39;,
+    &#39;(link: &quot;F-16 Fighting Falcon&quot;)[
     (set: $fighter to &quot;F16&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;F-22 Raptor&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;F-22 Raptor&quot;)[
     (set: $fighter to &quot;F12&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-     &lt;br&gt;
-    (link: &quot;A-10 Thunderbolt II&quot;)[
+    ]&#39;,
+     &#39;(link: &quot;A-10 Thunderbolt II&quot;)[
     (set: $fighter to &quot;A10&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;KC-46 Pegasus&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;KC-46 Pegasus&quot;)[
     (set: $fighter to &quot;KC46&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;E-3 Sentry&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;E-3 Sentry&quot;)[
     (set: $fighter to &quot;E3&quot;)\
 		(replace: ?fighter)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
+    ]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]</tw-passagedata><tw-passagedata pid="11" name="Task Four" tags="" position="925,600" size="100,100">&lt;!--  Check for remaining chances --&gt;
 (if: $chances &lt;= 0)[
 &lt;!--  User failed  --&gt;
@@ -561,6 +570,8 @@ You&#39;ve run out of chances on this portion.
 (set: $chances to 3)\
 (set: $failed to it + (a: 4))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -579,149 +590,136 @@ Select which aircraft you would like to use to provide close air support to help
 
 (set: $aircraft to &quot;&quot;)\
 |aircraft&gt;[{
-	(link: &quot;F-35 Lightning II&quot;)[
-    (set: $aircraft to &quot;F35&quot;)
-		(replace: ?aircraft)[
-			&lt;center&gt;
-            [[Launch Mission-&gt;Evaluate Task Four]]
-            &lt;/center&gt;
-        ]
-	]
-	&lt;br&gt;
-	(link: &quot;F-15E Strike Eagle&quot;)[
-    (set: $aircraft to &quot;F15&quot;)
+(for: each _question, ...(shuffled:
+&#39;(link: &quot;F-35 Lightning II&quot;)[
+    (set: $aircraft to &quot;F35&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-	]
-    &lt;br&gt;
-    (link: &quot;F-16 Fighting Falcon&quot;)[
-    (set: $aircraft to &quot;F16&quot;)
+	]&#39;,
+	&#39;(link: &quot;F-15E Strike Eagle&quot;)[
+    (set: $aircraft to &quot;F15&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;F-22 Raptor&quot;)[
-    (set: $aircraft to &quot;F22&quot;)
+	]&#39;,
+    &#39;(link: &quot;F-16 Fighting Falcon&quot;)[
+    (set: $aircraft to &quot;F16&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-     &lt;br&gt;
-    (link: &quot;A-10 Thunderbolt II&quot;)[
-    (set: $aircraft to &quot;A10&quot;)
+    ]&#39;,
+    &#39;(link: &quot;F-22 Raptor&quot;)[
+    (set: $aircraft to &quot;F12&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;KC-46 Pegasus&quot;)[
-    (set: $aircraft to &quot;KC46&quot;)
+    ]&#39;,
+     &#39;(link: &quot;A-10 Thunderbolt II&quot;)[
+    (set: $aircraft to &quot;A10&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;E-3 Sentry&quot;)[
-    (set: $aircraft to &quot;E3&quot;)
+    ]&#39;,
+    &#39;(link: &quot;KC-46 Pegasus&quot;)[
+    (set: $aircraft to &quot;KC46&quot;)\
 		(replace: ?aircraft)[
         &lt;center&gt;
-        [[Launch Mission-&gt;Evaluate Task Four]]
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;KC-10 Extender&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;E-3 Sentry&quot;)[
+    (set: $aircraft to &quot;E3&quot;)\
+		(replace: ?aircraft)[
+        &lt;center&gt;
+        [[Launch Mission-&gt;Evaluate Fighter Selection]]
+        &lt;/center&gt;
+        ]
+    ]&#39;,
+    &#39;(link: &quot;KC-10 Extender&quot;)[
     (set: $aircraft to &quot;KC10&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;KC-135 Stratotanker&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;KC-135 Stratotanker&quot;)[
     	(set: $aircraft to &quot;KC135&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;C17 Globemaster III&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;C17 Globemaster III&quot;)[
     (set: $aircraft to &quot;C17&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;C-5 Galaxy&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;C-5 Galaxy&quot;)[
     (set: $aircraft to &quot;C5&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;C-130 Hercules&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;C-130 Hercules&quot;)[
     (set: $aircraft to &quot;C130&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;MQ-9 Reaper&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;MQ-9 Reaper&quot;)[
     (set: $aircraft to &quot;MQ9&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;RQ-4 Global Hawk&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;RQ-4 Global Hawk&quot;)[
     (set: $aircraft to &quot;RQ4&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;E-8 Joint STARS&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;E-8 Joint STARS&quot;)[
     (set: $aircraft to &quot;E8&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
-    &lt;br&gt;
-    (link: &quot;U-2 Dragonlady&quot;)[
+    ]&#39;,
+    &#39;(link: &quot;U-2 Dragonlady&quot;)[
     (set: $aircraft to &quot;U2&quot;)
 		(replace: ?aircraft)[
         &lt;center&gt;
         [[Launch Mission-&gt;Evaluate Task Four]]
         &lt;/center&gt;
         ]
-    ]
+    ]&#39;,
+))[(print: _question)&lt;br&gt;]
 }]
 ]</tw-passagedata><tw-passagedata pid="12" name="Evaluate Task Two" tags="" position="1300,350" size="100,100">&lt;!--  Check conditions  --&gt;
 (if: $buddy is &quot;A10&quot;)[
@@ -739,8 +737,11 @@ Your bomber was shot down by a SAM site because your accompanying fighter did no
 (set: $chances to 3)\
 (set: $passed to it + (a: 2))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
+#Success
 (set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
@@ -754,6 +755,8 @@ You have successfully transported supplies and troops to be part of the fight. O
 (set: $chances to 3)\
 (set: $passed to it + (a: 3))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -774,6 +777,8 @@ Congratulations, you have successfully accomplished Air Force missions to suppor
 (set: $chances to 3)\
 (set: $passed to it + (a: 4))\
 (if: $index is 4)[
+#Finished
+You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 (set: _next to $order&#39;s ($index))\
@@ -788,24 +793,18 @@ Your selection did not support our ground troops adequately because you did not 
 (set: $chances to it - 1)\
 &lt;center&gt;[[Try Again-&gt;Task Four]]&lt;/center&gt;
 ]</tw-passagedata><tw-passagedata pid="15" name="Report" tags="" position="1450,350" size="100,100">#Air Power!!
-(if: $failed is (a:))[
-Congratulations, you&#39;ve successfully completed all portions of this task. 
-](else:)[
-(if: $passed is not empty)[
 ###Successfully Completed:
-(if: $passed contains 0)[Identify which tasks are appropriate for the Air Force]
-(if: $passed contains 1)[Collect intelligence on Russian supply movements in country]
-(if: $passed contains 2)[Obliterate Russian supply lines into Estonia Latvia, and Lithuania]
-(if: $passed contains 3)[Move equipment and troops into Finland and Poland to supply ground invasion]
-(if: $passed contains 4)[Provide close air support to ground troops]
+(if: $passed contains 0)[* Identify which tasks are appropriate for the Air Force&lt;br&gt;]\
+(if: $passed contains 1)[* Collect intelligence on Russian supply movements in country&lt;br&gt;]\
+(if: $passed contains 2)[* Obliterate Russian supply lines into Estonia Latvia, and Lithuania&lt;br&gt;]\
+(if: $passed contains 3)[* Move equipment and troops into Finland and Poland to supply ground invasion&lt;br&gt;]\
+(if: $passed contains 4)[* Provide close air support to ground troops&lt;br&gt;]\
 ###Failed to Complete:
-(if: $failed contains 0)[Identify which tasks are appropriate for the Air Force]
-(if: $failed contains 0)[Collect intelligence on Russian supply movements in country]
-(if: $failed contains 0)[Obliterate Russian supply lines into Estonia Latvia, and Lithuania]
-(if: $failed contains 0)[&quot;Move equipment and troops into Finland and Poland to supply ground invasion]
-(if: $failed contains 0)[Provide close air support to ground troops]
-]
-]</tw-passagedata></tw-storydata>
+(if: $failed contains 0)[* Identify which tasks are appropriate for the Air Force&lt;br&gt;]\
+(if: $failed contains 1)[* Collect intelligence on Russian supply movements in country&lt;br&gt;]\
+(if: $failed contains 2)[* Obliterate Russian supply lines into Estonia Latvia, and Lithuania&lt;br&gt;]\
+(if: $failed contains 3)[* Move equipment and troops into Finland and Poland to supply ground invasion&lt;br&gt;]\
+(if: $failed contains 4)[* Provide close air support to ground troops&lt;br&gt;]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
