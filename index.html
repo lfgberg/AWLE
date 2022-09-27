@@ -76,6 +76,8 @@ The warfighting assets you may have available to you during this scenario are as
 * E-8 Joint STARS
 * U-2 Dragonlady 
 
+###This game is designed for training purposes only
+
 &lt;center&gt;[[I Understand-&gt;Select Tasks]]&lt;/center&gt;</tw-passagedata><tw-passagedata pid="2" name="Task One" tags="" position="925,225" size="100,100">&lt;!--  Check for remaining chances --&gt;
 (if: $chances &lt;= 0)[\
 &lt;!--  User failed  --&gt;
@@ -89,8 +91,8 @@ You&#39;ve run out of chances on this portion.
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[\
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]\
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]\
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]\
@@ -159,7 +161,6 @@ You&#39;ve run out of chances on this portion.
 (set: $chances to 3)\
 (set: $failed to it + (a: 0))\
 (set: _next to $order&#39;s ($index))\
-(set: $index to it + 1) \
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]\
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]\
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]\
@@ -224,18 +225,12 @@ You&#39;ve successfully identified the capabilities of the Joint Fight
 &lt;!--  Reset, log, go to next task --&gt;
 (set: $chances to 3)\
 (set: $passed to it + (a: 0))\
-(if: $index is 4)[
-#Finished
-You&#39;ve completed all the exercises
-&lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
-](else:)[
 (set: _next to $order&#39;s ($index))\
-(set: $index to it + 1) \
-(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
-(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
-(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
-(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]
-]](else:)[
+(if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]\
+(else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]\
+(else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]\
+(else-if: _next is 4)[&lt;center&gt;[[Move Forward-&gt;Task Four]]&lt;/center&gt;]\
+](else:)[
 #Failure
 You have not properly identified the proper tasks for each component of the Joint Fight
 (set: $chances to ($chances - 1))\
@@ -256,8 +251,8 @@ You have successfully gathered information on troop and supply movements across 
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -289,8 +284,8 @@ You&#39;ve run out of chances on this portion.
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -425,8 +420,8 @@ You&#39;ve run out of chances on this portion.
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;c/enter&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -559,8 +554,8 @@ You&#39;ve run out of chances on this portion.
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -727,8 +722,8 @@ You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
 #Success
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -744,8 +739,8 @@ You have successfully transported supplies and troops to be part of the fight. O
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
@@ -766,8 +761,8 @@ Congratulations, you have successfully accomplished Air Force missions to suppor
 You&#39;ve completed all the exercises
 &lt;center&gt;[[Get Results-&gt;Report]]&lt;/center&gt;
 ](else:)[
-(set: _next to $order&#39;s ($index))\
 (set: $index to it + 1) \
+(set: _next to $order&#39;s ($index))\
 (if: _next is 1)[&lt;center&gt;[[Move Forward-&gt;Task One]]&lt;/center&gt;]
 (else-if: _next is 2)[&lt;center&gt;[[Move Forward-&gt;Task Two]]&lt;/center&gt;]
 (else-if: _next is 3)[&lt;center&gt;[[Move Forward-&gt;Task Three]]&lt;/center&gt;]
