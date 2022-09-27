@@ -235,7 +235,7 @@ You&#39;ve successfully identified the capabilities of the Joint Fight
 You have not properly identified the proper tasks for each component of the Joint Fight
 (set: $chances to ($chances - 1))\
 &lt;center&gt;[[Try Again-&gt;Select Tasks]]&lt;/center&gt;
-]</tw-passagedata><tw-passagedata pid="5" name="Evaluate Task One" tags="" position="1050,225" size="100,100">(if: $taskOneShip is &quot;MQ9&quot; and $taskOneBase is &quot;Estonia&quot;)[
+]</tw-passagedata><tw-passagedata pid="5" name="Evaluate Task One" tags="" position="1050,225" size="100,100">(if: $taskOneShip is &quot;MQ9&quot; or &quot;RQ4&quot; and $taskOneBase is &quot;Estonia&quot;)[
 #Failure
 Your aircraft does not have the range to complete the entirety of the mission. You have successfully gathered intelligence on troop and supply movement on the battlefield and in western Russia but Air Force Intelligence has requested more information on the movement of supplies from eastern Russia to the west.
 (set: $chances to it - 1)\
